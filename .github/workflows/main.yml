@@ -1,0 +1,39 @@
+#actions name
+name: Python application test with Github Actions
+
+#trigered on every push event to gitHub
+on: [push]
+
+
+#carry out the following
+jobs:
+
+#build the action on the latest ubuntu
+  build:
+
+    runs-on: ubuntu-latest
+#carry out the following steps
+    steps:
+    - uses: actions/checkout@v2
+    
+    #use Python 3.8 for setup to run python commands
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
+        
+      #carry out actions in the make file - install dependencies,
+    - name: Install dependencies
+      run: |
+        make install
+    - name: Lint with pylint
+      run: |
+        make lint
+    - name: Test with pytest
+      run: |
+        make test
+    - name: Format code
+      run: |
+        make format
+    
+    
